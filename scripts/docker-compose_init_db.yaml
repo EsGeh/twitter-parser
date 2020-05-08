@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+
+  # only used to set up the database:
+  twitter_parser_db_install:
+    image: bitnami/postgresql:12
+    container_name: ${DB_CONTAINER}
+    volumes:
+      - ./scripts/initdb:/docker-entrypoint-initdb.d
+    # user: ${USER_ID}:${GROUP_ID}
+    environment:
+      - POSTGRES_USER=postgres
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_DATABASE=db

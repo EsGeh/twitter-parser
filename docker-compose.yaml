@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  twitter_parser_db:
+    image: bitnami/postgresql:12
+    volumes:
+    - ./${DB_DATA_DIR}/pg_conf_dir:/bitnami/postgresql/
+    - ./${DB_DATA_DIR}/pg_opt_dir:/opt/bitnami/postgresql/
+    container_name: ${DB_CONTAINER}
+    user: ${USER_ID}:${GROUP_ID}
+    environment:
+      - POSTGRES_USER=postgres
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_DATABASE=db
+
+  twitter_parser_py:
+    depends_on:
+      - twitter_parser_db
+    build: ${PY_SRC_DIR}
+    image: ${PY_PARSER_IMAGE}
+    container_name: ${PY_PARSER_CONTAINER}
+    command: /twitter_parser/python/twitter_parser.py
+    # command: psql -h "twitter_parser_db" -U postgres -d db
+    volumes:
+      - ./${PY_SRC_DIR}:${PY_SRC_DIR_IN_CONTAINER}
+    working_dir: ${PY_SRC_DIR_IN_CONTAINER}
+    environment:
+      - SRC_DIR=${PY_SRC_DIR_IN_CONTAINER}
+    ports:
+      - "8000:8000"
+    user: ${USER_ID}:${GROUP_ID}
