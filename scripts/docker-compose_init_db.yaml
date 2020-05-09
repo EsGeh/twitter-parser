@@ -7,7 +7,7 @@ services:
     image: bitnami/postgresql:12
     container_name: ${DB_CONTAINER}
     volumes:
-      - ./scripts/initdb:/docker-entrypoint-initdb.d
+      - ./initdb:/docker-entrypoint-initdb.d
     # user: ${USER_ID}:${GROUP_ID}
     environment:
       - POSTGRES_USER=postgres

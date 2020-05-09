@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS tweets (
   age INTEGER,
   gender TEXT,
   nationality TEXT,
-	user_id INT FOREIGN KEY REFERENCES users(id)
+	user_id INT,
+	FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS keywords_tweets (
