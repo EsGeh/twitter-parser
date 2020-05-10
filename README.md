@@ -10,6 +10,8 @@ This is a small coding exercise about how to collect twitter posts containing sp
 
 ## Preliminary steps
 
+	$ cp .env.def .env
+
 Edit the `.env` file and enter the values for these fields:
 
 - `USER_ID`
