@@ -1,8 +1,7 @@
 
 
 CREATE TABLE IF NOT EXISTS keywords (
-	id SERIAL PRIMARY KEY,
-	keyword TEXT
+	keyword TEXT PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -14,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS tweets (
-  id SERIAL PRIMARY KEY,
+  id INT PRIMARY KEY,
   name TEXT NOT NULL, 
   age INTEGER,
   gender TEXT,
@@ -23,12 +22,11 @@ CREATE TABLE IF NOT EXISTS tweets (
 	FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS keywords_tweets (
-  keyword_id INT,
+CREATE TABLE IF NOT EXISTS keywords_tweets_rel (
+	keyword TEXT,
   tweet_id INT,
-	FOREIGN KEY (keyword_id) REFERENCES keywords(id),
-	FOREIGN KEY (tweet_id) REFERENCES tweets(id),
-	UNIQUE (keyword_id, tweet_id)
+	FOREIGN KEY (keyword) REFERENCES keywords(keyword),
+	FOREIGN KEY (tweet_id) REFERENCES tweets(id)
 );
 
 INSERT INTO keywords (keyword) VALUES( 'adidas' );
