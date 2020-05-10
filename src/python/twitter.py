@@ -12,7 +12,6 @@ from os import environ
 def init():
     twitter_app_token = environ.get("TWITTER_APP_TOKEN")
     twitter_app_secret = environ.get("TWITTER_APP_SECRET")
-
     auth = OAuth1(
             twitter_app_token,
             twitter_app_secret,
@@ -24,6 +23,7 @@ def fetch_tweets(
         keywords,
         count = 15,
         max_id = None,
+        since_id = None,
 ):
     """fetch up to 'count' tweets containing all 'keywords'
     if 'max_id' given, get only tweets with ids lower or eq
@@ -31,10 +31,13 @@ def fetch_tweets(
     params = {
         "q": ' '.join(keywords),
         "count": count,
+
         # "until": "2020-05-09",
     }
     if max_id is not None:
         params["max_id"] = max_id
+    if since_id is not None:
+        params["since_id"] = since_id
     resp = requests.get(
             "https://api.twitter.com/1.1/search/tweets.json",
             params=params,

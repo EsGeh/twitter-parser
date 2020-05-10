@@ -46,7 +46,7 @@ def write_tweet(
     # if already in database, do nothing:
     if( len(ret) > 0 ):
         print( f"already in db: '{tweet_json['id']}'" )
-        return
+        return 0
     else:
         # add user:
         cursor.execute(
@@ -71,6 +71,7 @@ def write_tweet(
                     "user_name": tweet_json['user']['name'],
                 }
             )
+        # insert tweet
         cursor.execute(
             """
             INSERT INTO tweets (id,text,user_id)
@@ -97,10 +98,7 @@ def write_tweet(
     )
     ret = cursor.fetchall()
     # if already in database, do nothing:
-    if( len(ret) > 0 ):
-        print( f"already in db: '{tweet_json['id']}'" )
-        return
-    else:
+    if( len(ret) == 0 ):
         cursor.execute(
             """
             INSERT INTO keywords_tweets_rel
@@ -112,3 +110,4 @@ def write_tweet(
             }
         )
         db_connection.commit()
+    return 1
