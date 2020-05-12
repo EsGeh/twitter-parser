@@ -2,7 +2,6 @@ package com.example.twitter_parser_java;
 
 import com.example.twitter_parser_java.types.*;
 
-//import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -12,11 +11,6 @@ import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.Status;
 import twitter4j.TwitterException;
 
-/*
-import kong.unirest.Unirest;
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-*/
 import java.io.IOException;
 import static org.junit.Assert.*;
 
@@ -80,13 +74,5 @@ public class Twitter {
 			);
 		}
 		return ret;
-		/*
-		List<Status> tweets = result.getTweets();
-		
-    for (Status status : ) {
-      System.out.println("@" + status.getUser().getScreenName() + ":" + status.getText());
-    }
-		*/
-		//return new Tweet();
 	}
 }

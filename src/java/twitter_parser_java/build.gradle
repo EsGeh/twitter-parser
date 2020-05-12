@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
 	implementation 'org.twitter4j:twitter4j-core:4.0.7'
-	//implementation 'com.konghq:unirest-java:3.7.02'
+	implementation 'org.postgresql:postgresql:42.2.12'
 	implementation 'junit:junit:4.13'
 }
 
