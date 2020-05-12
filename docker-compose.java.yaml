@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+
+  twitter_parser_db:
+    image: bitnami/postgresql:12
+    volumes:
+    - ./${DB_DATA_DIR}/pg_conf_dir:/bitnami/postgresql/
+    - ./${DB_DATA_DIR}/pg_opt_dir:/opt/bitnami/postgresql/
+    container_name: ${DB_CONTAINER}
+    user: ${USER_ID}:${GROUP_ID}
+    environment:
+      - POSTGRES_USER=postgres
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_DATABASE=db
+
+  twitter_parser_java:
+    depends_on:
+      - twitter_parser_db
+    image: openjdk:8-jre-alpine
+    # build: ${JAVA_SRC_DIR}
+    container_name: ${JAVA_PARSER_CONTAINER}
+    working_dir: ${JAVA_SRC_DIR_IN_CONTAINER}
+    command: java -jar twitter_parser_java/build/libs/twitter_parser_java-0.0.1-SNAPSHOT.jar
+    volumes:
+      - ./${JAVA_SRC_DIR}:${JAVA_SRC_DIR_IN_CONTAINER}
+    environment:
+      - SRC_DIR=${JAVA_SRC_DIR_IN_CONTAINER}
+      - TWITTER_APP_TOKEN=${TWITTER_APP_TOKEN}
+      - TWITTER_APP_SECRET=${TWITTER_APP_SECRET}
+      - TWITTER_ACCESS_TOKEN=${TWITTER_ACCESS_TOKEN}
+      - TWITTER_ACCESS_SECRET=${TWITTER_ACCESS_SECRET}
+    user: ${USER_ID}:${GROUP_ID}
