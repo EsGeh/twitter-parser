@@ -29,6 +29,4 @@ services:
       - SRC_DIR=${PY_SRC_DIR_IN_CONTAINER}
       - TWITTER_APP_TOKEN=${TWITTER_APP_TOKEN}
       - TWITTER_APP_SECRET=${TWITTER_APP_SECRET}
-    ports:
-      - "8000:8000"
     user: ${USER_ID}:${GROUP_ID}
